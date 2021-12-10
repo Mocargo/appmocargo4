@@ -7,13 +7,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = __importDefault(require("./servicios/server"));
 const cors = require('cors');
 const mongoose_1 = __importDefault(require("mongoose"));
+const body_parser_1 = __importDefault(require("body-parser"));
+const express_fileupload_1 = __importDefault(require("express-fileupload"));
+const usuario_1 = __importDefault(require("./routes/usuario"));
+const post_1 = __importDefault(require("./routes/post"));
 const express = require('express');
 const routerApi = require('./routes');
 const app = express();
+const server = new server_1.default();
 const port = process.env.PORT || 3000;
 const {logErrors , errorHandler}= require('./middlewares/error.handler');
-const body_parser_1 = __importDefault(require("body-parser"));
-const server = new server_1.default();
+
 
 
 app.use(express.json());
@@ -45,17 +49,29 @@ app.get('/nueva-ruta', (req, res) => {
   res.send('Hola, soy una nueva ruta');
 });
 
+//rutas de mi aplicacion
+
+
+server.app.use( usuario_1.default);
+server.app.use( post_1.default);
+
+// fileupload
+server.app.use((0, express_fileupload_1.default)());
+
 
 mongoose_1.default.connect('mongodb+srv://jcastaneda:2022TiMocargo@cluster0.gzkuf.mongodb.net/mocargo?retryWrites=true&w=majority', (err) => {
-    if (err)
-        throw err;
-    console.log('Conectado a mongoose');
+    if (err) {
+      throw err;
+  console.log('Conectado a mongoose');
+    } else {
+      console.log('conexión a base de datos');
+    }
 });
-
 
 
 routerApi(app);
 app.use(logErrors , errorHandler);
+
 
 
 app.listen(port, () => {
