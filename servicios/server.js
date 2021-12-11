@@ -16,3 +16,8 @@ class Server {
     }
 }
 exports.default = Server;
+
+
+//app.listen(port, () => {
+//console.log('Mi podrt' +  port);
+//});
