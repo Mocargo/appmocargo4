@@ -24,24 +24,24 @@ const {logErrors , errorHandler}= require('./middlewares/error.handler');
 
 //app.use(express.json());
 
-const whitelist = ['http://localhost:8080', 'https://myapp.co','http://localhost:3000','http://localhost:8100'];
-const options = {
-  origin: (origin, callback) => {
-    if (whitelist.includes(origin) || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('no permitido'));
-    }
-  }
-}
-app.use(cors(options));
+//const whitelist = ['http://localhost:8080', 'https://myapp.co','http://localhost:3000','http://localhost:8100'];
+//const options = {
+  //origin: (origin, callback) => {
+  //  if (whitelist.includes(origin) || !origin) {
+   //   callback(null, true);
+   // } else {
+   //   callback(new Error('no permitido'));
+ //  }
+ // }
+//}
+app.use(cors());
 
-//app.use(function(req, res, next) {
-  //res.header("Access-Control-Allow-Origin", "*");
-  //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  //res.header("Access-Control-Allow-Methods", "PUT");
-  //next();
-//});
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods", "PUT");
+  next();
+});
 
 app.get('/', (req, res) => {
   res.send('Hola mi server en express');
