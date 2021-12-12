@@ -24,16 +24,16 @@ const {logErrors , errorHandler}= require('./middlewares/error.handler');
 
 //app.use(express.json());
 
-//const whitelist = ['http://localhost:8080', 'https://myapp.co','http://localhost:3000','http://localhost:8100'];
-//const options = {
-  //origin: (origin, callback) => {
-  //  if (whitelist.includes(origin) || !origin) {
-   //   callback(null, true);
-   // } else {
-   //   callback(new Error('no permitido'));
- //  }
- // }
-//}
+const whitelist = ['http://localhost:8080', 'https://myapp.co','http://localhost:3000','http://localhost:8100','http://localhost'];
+const options = {
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('no permitido'));
+   }
+  }
+}
 app.use(cors());
 
 app.use(function(req, res, next) {
