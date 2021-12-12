@@ -24,7 +24,7 @@ const {logErrors , errorHandler}= require('./middlewares/error.handler');
 
 //app.use(express.json());
 
-const whitelist = ['http://localhost:8080', 'https://myapp.co','http://localhost:3000','http://localhost:8100','http://localhost'];
+const whitelist = ['http://localhost:8080', 'https://myapp.co','http://localhost:3000','http://localhost:8100','http://localhost','http://localhost/vendor.js'];
 const options = {
   origin: (origin, callback) => {
     if (whitelist.includes(origin) || !origin) {
